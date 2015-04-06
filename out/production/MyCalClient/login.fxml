@@ -24,10 +24,10 @@
          <children>
             <TextField fx:id="Username" layoutX="125.0" layoutY="206.0" promptText="Username or Email" />
             <PasswordField fx:id="Password" layoutX="125.0" layoutY="241.0" promptText="Password" />
-            <Button layoutX="152.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#Login" prefWidth="100.0" text="Login" />
+            <Button layoutX="152.0" layoutY="274.0" mnemonicParsing="false" prefWidth="100.0" text="Login" />
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="147.0" layoutY="100.0">
                <image>
-                  <Image url="@../Design/Calendar-icon.png" />
+                  <Image url="@../../../../Photos/Icons/Calendar-icon.png" />
                </image>
             </ImageView>
             <Text fill="#a40707" fontSmoothingType="LCD" layoutX="109.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To MyCal !" textAlignment="CENTER">
