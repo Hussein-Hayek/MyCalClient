@@ -12,7 +12,7 @@ public class Main extends Application {
     public static boolean connected=false;
     public static DataOutputStream outToServer=null;
     public static BufferedReader inFromServer=null;
-
+    public static String My_ID;
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));

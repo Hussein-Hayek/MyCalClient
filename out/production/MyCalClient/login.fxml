@@ -27,7 +27,7 @@
             <Button fx:id="Login_Btn" layoutX="152.0" layoutY="274.0" mnemonicParsing="false" onAction="#Login" prefWidth="100.0" text="Login" />
             <ImageView fx:id="Login_Img" fitHeight="100.0" fitWidth="100.0" layoutX="147.0" layoutY="69.0">
                <image>
-                  <Image url="@../Design/Calendar-icon.png" />
+                  <Image url="@/Design/Calendar-icon.png" />
                </image>
             </ImageView>
             <Text fill="#a40707" fontSmoothingType="LCD" layoutX="106.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To MyCal !" textAlignment="CENTER">
