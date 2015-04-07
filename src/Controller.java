@@ -15,36 +15,40 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
+
+    private int id;
+ static String name="";
     @FXML
-    private TextField Login_Username;
+    public TextField Login_Username;
     @FXML
-    private PasswordField Login_Password;
+    public PasswordField Login_Password;
     @FXML
-    private Label Login_Status;
+    public Label Login_Status;
     @FXML
-    private Button Login_Btn;
+    public Button Login_Btn;
     @FXML
-    private Button Show_Friends;
+    public Button Show_Friends;
     @FXML
-    private Button Show_Events;
+    public Button Show_Events;
     @FXML
-    private Text List;
+    public Text List;
     @FXML
-    private Text Name;
+    public Text Name;
     @FXML
-    private void Login(ActionEvent Login_pressed){
+    public void Login(ActionEvent Login_pressed){
         String out="login\n"+Login_Username.getText()+"\n"+ Login_Password.getText()+"\n";
         Login_Btn.setDisable(true);
         try {
             Main.outToServer.writeBytes(out);
             BufferedReader response=Main.inFromServer;
             String status=response.readLine();
-            Main.My_ID=response.readLine();
             if(status.equals("Failed")){
                 Login_Status.setText("Invalid Username or Password!");
                 Login_Btn.setDisable(false);
             }
             else{
+                Main.My_ID=response.readLine();
+                name=Login_Username.getText();
                 Login_Status.setText("Success");
                 OpenHome();
             }
@@ -55,7 +59,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    private void ShowFriends(ActionEvent Show_Friends_Pressed){
+    public void ShowFriends(ActionEvent Show_Friends_Pressed){
         String out="request friends\n"+Main.My_ID+"\n";
         try {
             Main.outToServer.writeBytes(out);
@@ -69,9 +73,9 @@ public class Controller implements Initializable{
             String friends="";
             int N_Friends=0;
             String id;
-            while((id=response.readLine())!=null){
+            while((id=response.readLine())!="-1"){
                 N_Friends++;
-                friends+=id+'\n';
+                friends+=id+"\n";
             }
             List.setText(friends);
             if(N_Friends==0)
@@ -82,7 +86,7 @@ public class Controller implements Initializable{
     }
 
     @FXML
-    private void ShowEvents(){
+    public void ShowEvents(){
 
     }
     @Override
