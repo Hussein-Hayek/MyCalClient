@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="226.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="289.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="593.0" minHeight="10.0" prefHeight="593.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="593.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Pane prefHeight="452.0" prefWidth="0.0" GridPane.rowIndex="1">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="6.0" prefHeight="61.0" prefWidth="158.0" text="Sign Up">
+               <font>
+                  <Font name="Cambria Italic" size="35.0" />
+               </font>
+            </Label>
+            <VBox layoutX="20.0" layoutY="93.0" prefHeight="416.0" prefWidth="308.0" spacing="30.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="22.0" prefWidth="108.0" text="First Name :" />
+                        <TextField fx:id="fname_su" layoutX="140.0" layoutY="10.0" prefHeight="25.0" prefWidth="171.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="108.0" text="Last Name :" />
+                        <TextField fx:id="lname_su" layoutX="145.0" layoutY="10.0" prefHeight="25.0" prefWidth="176.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="108.0" text="Username :" />
+                        <TextField fx:id="uname_su" layoutX="145.0" layoutY="10.0" prefHeight="25.0" prefWidth="176.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="108.0" text="Email :" />
+                        <TextField fx:id="email_su" layoutX="145.0" layoutY="10.0" prefHeight="25.0" prefWidth="176.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="108.0" text="Password :" />
+                        <PasswordField fx:id="pass_su" layoutX="145.0" layoutY="10.0" prefHeight="25.0" prefWidth="177.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="416.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="108.0" text="Confirm Password :" />
+                        <PasswordField fx:id="cpass_su" prefHeight="25.0" prefWidth="177.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="446.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="108.0" text="Birthday :" />
+                        <DatePicker fx:id="bday_su" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button fx:id="subtn_su" layoutX="119.0" layoutY="531.0" mnemonicParsing="false" onAction="#signup" prefHeight="34.0" prefWidth="99.0" text="Sign Up" />
+            <Label fx:id="signup_status" alignment="CENTER" layoutX="63.0" layoutY="67.0" prefHeight="17.0" prefWidth="201.0" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>

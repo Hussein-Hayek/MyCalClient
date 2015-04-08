@@ -12,7 +12,7 @@ public class Main extends Application {
     public static boolean connected=false;
     public static DataOutputStream outToServer=null;
     public static BufferedReader inFromServer=null;
-
+    public static String My_ID;
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
@@ -31,11 +31,14 @@ public class Main extends Application {
             inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); // Buffered reader is saving input in a buffer so that when we invoke .readLine() // it will efficiently return everything before .readLine. sentence = inFromUser.readLine();
             outToServer.writeBytes("check connection\n");
             response=inFromServer.readLine();
-            System.out.println(response);
-            if (response.equals("Welcome")) connected = true;
         }
         catch (IOException e) {
         }
+        finally {
+            System.out.println(response);
+            if (response.equals("Welcome")) connected = true;
+        }
         launch(args);
     }
+
 }

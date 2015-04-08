@@ -27,7 +27,7 @@
             <Button layoutX="152.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#Login" prefWidth="100.0" text="Login" />
             <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="147.0" layoutY="100.0">
                <image>
-                  <Image url="@../Design/Calendar-icon.png" />
+                  <Image url="@Design/Calendar-icon.png" />
                </image>
             </ImageView>
             <Text fill="#a40707" fontSmoothingType="LCD" layoutX="109.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To MyCal !" textAlignment="CENTER">
