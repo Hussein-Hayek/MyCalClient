@@ -8,37 +8,17 @@ import java.io.*;
 import java.net.*;
 
 public class Main extends Application {
-    public static Socket clientSocket=null;
-    public static boolean connected=false;
-    public static DataOutputStream outToServer=null;
-    public static BufferedReader inFromServer=null;
-    public static String My_ID;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("layouts/login.fxml"));
         primaryStage.setTitle("MyCal: Login");
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
     }
 
-
     public static void main(String[] args) throws Exception
     {
-        String response="disconnected";
-        try {
-            clientSocket= new Socket("localhost",2015);
-            outToServer = new DataOutputStream(clientSocket.getOutputStream());
-            inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); // Buffered reader is saving input in a buffer so that when we invoke .readLine() // it will efficiently return everything before .readLine. sentence = inFromUser.readLine();
-            outToServer.writeBytes("check connection\n");
-            response=inFromServer.readLine();
-        }
-        catch (IOException e) {
-        }
-        finally {
-            System.out.println(response);
-            if (response.equals("Welcome")) connected = true;
-        }
         launch(args);
     }
-
 }
