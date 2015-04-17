@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.24585635359116023" minHeight="0.0" minWidth="0.0" prefHeight="575.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController">
+<SplitPane dividerPositions="0.24585635359116023" minHeight="0.0" minWidth="0.0" prefHeight="575.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
    <items>
       <AnchorPane maxWidth="175.0" minHeight="0.0" minWidth="175.0" prefHeight="160.0" prefWidth="100.0">
          <children>
@@ -29,24 +29,24 @@
                   </ImageView>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Button">
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Friends">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>
                         </Button>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Button">
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Events">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>
                         </Button>
-                        <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Button">
+                        <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Chat">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>
                         </Button>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="181.0" text="Button" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="181.0" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                </children>
             </GridPane>
          </children></AnchorPane>

@@ -1,17 +1,16 @@
 
+import Models.ClientSocket;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.*;
-import java.net.*;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("layouts/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("View/login.fxml"));
         primaryStage.setTitle("MyCal: Login");
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
@@ -19,6 +18,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception
     {
+        ClientSocket.connect();
         launch(args);
     }
 }
