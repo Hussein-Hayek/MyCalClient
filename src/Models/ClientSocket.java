@@ -5,53 +5,63 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientSocket extends Socket {   //this is a singleton class since I want only one instance during application lifecycle that can be of course re-instantiated
     private static ClientSocket clientSocket = null;
     private static boolean ClientConnected=false;
     private static DataOutputStream outToServer=null;
     private static BufferedReader inFromServer=null;
-
+    private static int id;
     public static ClientSocket getClientSocket(){
-        if(clientSocket==null){
-            try {
-                clientSocket= new ClientSocket();
-                ClientConnected=true;
-                outToServer = new DataOutputStream(clientSocket.getOutputStream());
-                inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));// Buffered reader is saving input in a buffer so that when we invoke .readLine()
-                                                                                                        // it will efficiently return everything before .readLine. sentence = inFromUser.readLine();
-            }
-            catch (IOException e){
-                System.out.println(e.toString());
-            }
-        }
+        if(clientSocket==null)
+            connect();
         return clientSocket;
     }
 
-    private ClientSocket() throws IOException {
-        super("localhost",2015);
+    private ClientSocket(String host,int port) throws IOException {
+        super(host,port);
+    }
+
+    private ClientSocket(){
+
     }
 
     public static void connect(){
-        clientSocket=getClientSocket();
+        if(clientSocket==null || !ClientConnected){
+            try {
+                clientSocket= new ClientSocket("localhost",2015);
+                ClientConnected=true;
+                outToServer = new DataOutputStream(clientSocket.getOutputStream());
+                inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));// Buffered reader is saving input in a buffer so that when we invoke .readLine()
+                // it will efficiently return everything before .readLine. sentence = inFromUser.readLine();
+            }
+            catch (IOException e){
+                System.out.println(e.toString());
+                clientSocket=new ClientSocket();
+            }
+        }
     }
 
     public boolean isClientConnected(){ return ClientConnected; }
     public DataOutputStream getOutToServer(){ return outToServer; }
     public BufferedReader getInFromServer(){ return inFromServer; }
 
-    public int login(String username,String password){  // return -1: connection error
-        if(!isClientConnected())                        // return 0: invalid username
-            return -1;                                  // return 1: success
-        String out="login\n"+username+"\n"+ password +"\n";
+    public int login(String username,String password){
+        if (!isClientConnected())
+            return -1;
+        String out = "login\n" + username + "\n" + password + "\n";
         try {
             outToServer.writeBytes(out);
-            String status=inFromServer.readLine();
-            if(status.equals("Failed: 0"))
+            String status = inFromServer.readLine();
+            if (status.equals("Failed: 0"))
                 return -1;
-            else if(status.equals("Failed: 1"))
+            else if (status.equals("Failed: 1"))
                 return 0;
-        } catch (IOException e) {
+            else
+                id=Integer.parseInt((status.split(" "))[1]);
+        }
+        catch(IOException e) {
             System.out.println(e.toString());
             return -1;
         }
@@ -78,5 +88,46 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         return 1;
     }
 
+    public ArrayList<Event> getEvents(){
+        String out="request events\n"+id+"\n";
+        ArrayList<Event> events=new ArrayList<>();
+        try {
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Success")){
+                while (!inFromServer.readLine().equals("end")){
+                    Event event=new Event();
+                    event.setId(Integer.parseInt(inFromServer.readLine()));
+                    event.setCreator_id(Integer.parseInt(inFromServer.readLine()));
+                    event.setName(inFromServer.readLine());
+                    event.setDateBegin(inFromServer.readLine());
+                    event.setDateEnd(inFromServer.readLine());
+                    event.setTimeBegin(inFromServer.readLine());
+                    event.setTimeEnd(inFromServer.readLine());
+                    event.setN_going(Integer.parseInt(inFromServer.readLine()));
+                    event.setN_invited(Integer.parseInt(inFromServer.readLine()));
+                    events.add(event);
+                }
+            }
+            else
+                return null;
+
+        } catch (IOException e) {
+            System.out.println(e.toString());
+            return null;
+        }
+        return events;
+    }
+
+    public void finish(){
+        if(!isClientConnected())
+            return;
+        try {
+            outToServer.writeBytes("exit\n");
+        }
+        catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
 
 }

@@ -2,25 +2,22 @@ package Controllers;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.StringBinding;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import java.io.IOException;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-/**
- * Created by Abdallah on 17-Apr-15.
- */
 public class SignUpController implements Initializable {
+    private Task<Integer> signUpTask;
+    private Alert connectionError=new Alert(Alert.AlertType.ERROR);
+    private Alert signUpFailed=new Alert(Alert.AlertType.ERROR);
     @FXML
     public TextField fname_su;
     @FXML
@@ -43,17 +40,8 @@ public class SignUpController implements Initializable {
     public Label psswd_error;
     @FXML
     public void signup(){
-        String[] attributes={fname_su.getText(),lname_su.getText(),uname_su.getText(),email_su.getText(),pass_su.getText(),
-                ""+bday_su.getValue()};
-        if(bday_su.getValue()==null)
-            attributes[5]="0000-00-00";
-        int status=Models.ClientSocket.getClientSocket().signup(attributes);
-        if(status<0)
-            signup_status.setText("Connection error");
-        else if(status>0)
-            signup_status.setText("Success");
-        else
-            signup_status.setText("Username already exists.");
+        initializeSignUpTask();
+        (new Thread(signUpTask)).start();
     }
 
     @Override
@@ -104,6 +92,36 @@ public class SignUpController implements Initializable {
                     return "";
             }
         });
+        connectionError.setTitle("Connection Error");
+        connectionError.setContentText("Cannot connect to server.");
+        connectionError.getButtonTypes().clear();
+        connectionError.getButtonTypes().add(new ButtonType("Reconnect", ButtonBar.ButtonData.OK_DONE));
+        connectionError.getButtonTypes().add(new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE));
+        signUpFailed.setTitle("Error");
+        signUpFailed.setContentText("User Already Exists");
+    }
 
+    private void initializeSignUpTask(){
+        signUpTask=new Task<Integer>() {
+            @Override
+            protected Integer call() throws Exception {
+                String[] attributes={fname_su.getText(),lname_su.getText(),uname_su.getText(),email_su.getText(),pass_su.getText(),
+                        ""+bday_su.getValue()};
+                if(bday_su.getValue()==null)
+                    attributes[5]="0000-00-00";
+                int status=Models.ClientSocket.getClientSocket().signup(attributes);
+                updateValue(status);
+                return status;
+            }
+            @Override
+            protected void succeeded(){
+                if(getValue()<0)
+                    connectionError.showAndWait();
+                else if(getValue()>0)
+                    signup_status.setText("Success");
+                else
+                    signUpFailed.showAndWait();
+            }
+        };
     }
 }
