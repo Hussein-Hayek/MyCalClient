@@ -1,40 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="200.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="400.0" minHeight="10.0" prefHeight="400.0" vgrow="ALWAYS" />
-    <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<GridPane alignment="CENTER" prefHeight="453.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddEventController">
    <children>
-      <VBox prefHeight="296.0" prefWidth="372.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <Pane prefHeight="482.0" prefWidth="575.0">
          <children>
-            <HBox prefHeight="48.0" prefWidth="362.0" spacing="150.0">
+            <VBox layoutX="154.0" layoutY="70.0" prefHeight="317.0" prefWidth="268.0" spacing="20.0">
                <children>
-                  <Label alignment="TOP_LEFT" text="Name :">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <TextField alignment="TOP_LEFT" />
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Title :         ">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="Event_name" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date :">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <DatePicker fx:id="Event_Start" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time :" wrappingWidth="100.33447265625">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <ComboBox fx:id="hh_b" prefWidth="150.0" promptText="hh" />
+                        <ComboBox fx:id="mm_b" prefWidth="150.0" promptText="mm" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date : ">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <DatePicker fx:id="Event_End" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End  Time :">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <ComboBox fx:id="hh_e" prefWidth="150.0" promptText="hh" />
+                        <ComboBox fx:id="mm_e" prefWidth="150.0" promptText="mm" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location :  ">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="Event_location" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="25.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Google Maps :         ">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <ImageView fx:id="maps" fitHeight="26.0" fitWidth="37.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../resources/images/maps-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="23.0" prefWidth="268.0" spacing="16.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TimeZone :" wrappingWidth="101.4931640625">
+                           <font>
+                              <Font name="Times New Roman Italic" size="21.0" />
+                           </font>
+                        </Text>
+                        <ComboBox fx:id="timeZone" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="290.0" prefHeight="100.0" prefWidth="200.0" />
+            </VBox>
+            <Label layoutX="213.0" layoutY="14.0" text="Create Event">
+               <font>
+                  <Font name="KodchiangUPC Italic" size="43.0" />
+               </font>
+            </Label>
+            <Label fx:id="Error" layoutX="216.0" layoutY="61.0" text="Please fill all required fields" textAlignment="CENTER" textFill="RED" visible="false" />
+            <Button layoutX="213.0" layoutY="423.0" mnemonicParsing="false" onAction="#Submit" text="Submit" />
+            <Button cancelButton="true" layoutX="308.0" layoutY="423.0" mnemonicParsing="false" text="Cancel" />
          </children>
-      </VBox>
+      </Pane>
    </children>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="575.0" minWidth="10.0" prefWidth="575.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="479.0" minHeight="10.0" prefHeight="472.0" vgrow="SOMETIMES" />
+   </rowConstraints>
 </GridPane>

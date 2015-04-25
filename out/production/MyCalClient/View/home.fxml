@@ -30,7 +30,7 @@
                <children>
                   <GridPane layoutX="15.0" layoutY="131.0" prefHeight="573.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="172.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                        <ImageView fitHeight="177.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <image>
                               <Image url="@../resources/images/NULL.jpeg" />
                            </image>
@@ -54,7 +54,7 @@
                               </Button>
                            </children>
                         </VBox>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="181.0" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="Logout" mnemonicParsing="false" onAction="#Logout" prefHeight="25.0" prefWidth="181.0" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
