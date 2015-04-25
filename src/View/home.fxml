@@ -9,13 +9,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
-        <items>
-          <Button mnemonicParsing="false" text="Button" />
-        </items>
+         <items>
+            <Button fx:id="addEvent_btn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addEvent">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/images/ic_action_new.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </items>
       </ToolBar>
       <SplitPane dividerPositions="0.24585635359116023" minHeight="0.0" minWidth="0.0" prefHeight="575.0" prefWidth="726.0" VBox.vgrow="ALWAYS">
          <items>
@@ -23,7 +30,7 @@
                <children>
                   <GridPane layoutX="15.0" layoutY="131.0" prefHeight="573.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <ImageView fitHeight="265.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                        <ImageView fitHeight="177.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <image>
                               <Image url="@../resources/images/NULL.jpeg" />
                            </image>
@@ -87,7 +94,7 @@
                                                 <Image url="@../resources/images/ic_action_next_item.png" />
                                              </image>
                                           </ImageView>
-                                          <ComboBox fx:id="year" editable="true" prefHeight="25.0" prefWidth="68.0" promptText="Year" />
+                                          <ComboBox fx:id="year" onAction="#selectYear" prefHeight="25.0" prefWidth="68.0" promptText="Year" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="349.0" prefWidth="541.0" VBox.vgrow="ALWAYS">
