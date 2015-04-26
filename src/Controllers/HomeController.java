@@ -8,10 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -141,7 +147,16 @@ public class HomeController implements Initializable {
 
     @FXML
     public void addEvent(){
-        
+        Parent addEvent_fxml= null;
+        try {
+            addEvent_fxml = FXMLLoader.load(getClass().getResource("../View/eventAdder.fxml"));
+            Stage eventAdder=new Stage();
+            eventAdder.setScene(new Scene(addEvent_fxml,600,400));
+            eventAdder.setTitle("MyCal: Create Event");
+            eventAdder.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showEvents(ObservableList<Event> events){

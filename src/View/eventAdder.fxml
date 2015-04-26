@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" prefHeight="453.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddEventController">
+<GridPane alignment="CENTER" prefHeight="472.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddEventController">
    <children>
-      <Pane prefHeight="482.0" prefWidth="575.0">
+      <Pane prefHeight="493.0" prefWidth="575.0">
          <children>
             <VBox layoutX="154.0" layoutY="70.0" prefHeight="317.0" prefWidth="268.0" spacing="20.0">
                <children>
@@ -82,14 +82,18 @@
                               <Font name="Times New Roman Italic" size="21.0" />
                            </font>
                         </Text>
-                        <ImageView fx:id="maps" fitHeight="26.0" fitWidth="37.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../resources/images/maps-icon.png" />
-                           </image>
-                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#GoogleMaps" prefHeight="29.0" prefWidth="34.0">
+                           <graphic>
+                              <ImageView fx:id="maps" fitHeight="31.0" fitWidth="30.0">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <image>
+                                    <Image url="@../resources/images/maps-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                   <HBox prefHeight="23.0" prefWidth="268.0" spacing="16.0">
@@ -110,8 +114,8 @@
                </font>
             </Label>
             <Label fx:id="Error" layoutX="216.0" layoutY="61.0" text="Please fill all required fields" textAlignment="CENTER" textFill="RED" visible="false" />
-            <Button layoutX="213.0" layoutY="423.0" mnemonicParsing="false" onAction="#Submit" text="Submit" />
-            <Button cancelButton="true" layoutX="308.0" layoutY="423.0" mnemonicParsing="false" text="Cancel" />
+            <Button layoutX="216.0" layoutY="436.0" mnemonicParsing="false" onAction="#Submit" text="Submit" />
+            <Button cancelButton="true" layoutX="311.0" layoutY="436.0" mnemonicParsing="false" text="Cancel" />
          </children>
       </Pane>
    </children>

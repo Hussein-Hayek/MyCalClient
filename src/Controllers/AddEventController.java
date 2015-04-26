@@ -7,11 +7,17 @@ import javafx.beans.binding.StringBinding;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -117,5 +123,19 @@ public class AddEventController implements Initializable{
 
             }
         };
+    }
+
+    @FXML
+    public void GoogleMaps(){
+        Parent GoogleMapsWebView_fxml= null;
+        try {
+            GoogleMapsWebView_fxml = FXMLLoader.load(getClass().getResource("../View/GoogleMapsWebView.fxml"));
+            Stage GoogleMapsWebView=new Stage();
+            GoogleMapsWebView.setScene(new Scene(GoogleMapsWebView_fxml, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+            GoogleMapsWebView.setTitle("MyCal: Google Maps Location");
+            GoogleMapsWebView.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

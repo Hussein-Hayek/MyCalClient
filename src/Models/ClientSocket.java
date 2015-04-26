@@ -104,6 +104,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
                     event.setDateEnd(inFromServer.readLine());
                     event.setTimeBegin(inFromServer.readLine());
                     event.setTimeEnd(inFromServer.readLine());
+                    event.setTimeZone(inFromServer.readLine());
                     event.setN_going(Integer.parseInt(inFromServer.readLine()));
                     event.setN_invited(Integer.parseInt(inFromServer.readLine()));
                     events.add(event);
@@ -112,7 +113,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
             else
                 return null;
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(e.toString());
             return null;
         }
