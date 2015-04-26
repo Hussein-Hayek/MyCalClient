@@ -85,7 +85,7 @@
                                                 <Image url="@../resources/images/ic_action_previous_item.png" />
                                              </image>
                                           </ImageView>
-                                          <Label fx:id="month" />
+                                          <Label fx:id="month" alignment="CENTER" prefHeight="17.0" prefWidth="120.0" />
                                           <ImageView fitHeight="26.0" fitWidth="123.0" onMouseClicked="#addMonth" pickOnBounds="true" preserveRatio="true">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
@@ -163,7 +163,7 @@
                         </AnchorPane>
                         <AnchorPane maxHeight="216.0" minHeight="216.0" minWidth="0.0" prefHeight="216.0" prefWidth="541.0">
                            <children>
-                              <ScrollPane prefHeight="216.0" prefWidth="541.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="events_list" prefHeight="216.0" prefWidth="587.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </items>

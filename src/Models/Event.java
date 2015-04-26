@@ -1,21 +1,26 @@
 package Models;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Event {
-    private IntegerProperty id;
-    private IntegerProperty creator_id;
-    private StringProperty name;
-    private StringProperty location;
-    private StringProperty dateBegin;
-    private StringProperty dateEnd;
-    private StringProperty timeBegin;
-    private StringProperty timeEnd;
-    private StringProperty timeZone;
-    private IntegerProperty N_going;
-    private IntegerProperty N_invited;
+    private IntegerProperty id=new SimpleIntegerProperty();
+    private IntegerProperty creator_id=new SimpleIntegerProperty();
+    private StringProperty name=new SimpleStringProperty();
+    private StringProperty location=new SimpleStringProperty();
+    private StringProperty dateBegin=new SimpleStringProperty();
+    private StringProperty dateEnd=new SimpleStringProperty();
+    private StringProperty timeBegin=new SimpleStringProperty();
+    private StringProperty timeEnd=new SimpleStringProperty();
+    private StringProperty timeZone=new SimpleStringProperty();
+    private IntegerProperty N_going=new SimpleIntegerProperty();
+    private IntegerProperty N_invited=new SimpleIntegerProperty();
 
+    public Event(){
+
+    }
 
     public int getId() {
         return id.get();

@@ -13,6 +13,7 @@ public class MyCalCalendar extends GregorianCalendar {
     private boolean empty=false;
     private static final GregorianCalendar currentDate=new GregorianCalendar();
     public static void update(){
+        eventsDateMap.clear();
         ArrayList<Event> events=ClientSocket.getClientSocket().getEvents();
         for (Event event:events) {
             if (eventsDateMap.get(event.getDateBegin()) == null)
@@ -59,13 +60,14 @@ public class MyCalCalendar extends GregorianCalendar {
         int day=gregorianCalendar.get(DAY_OF_MONTH);
         int month=gregorianCalendar.get(MONTH)+1;
         int year=gregorianCalendar.get(YEAR);
-        format+=year;
+        format+=year+"-";
         if(month<10)
-            format+='0'+month;
+            format+="0"+month;
         else
             format+=month;
+        format+="-";
         if(day<10)
-            format+='0'+day;
+            format+="0"+day;
         else
             format+=day;
         return format;

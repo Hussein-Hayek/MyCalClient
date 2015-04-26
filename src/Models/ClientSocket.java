@@ -119,6 +119,18 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         return events;
     }
 
+    public void addEvent(String[] args){
+        String out="add event\n";
+        out+=id+"\n"+args[0]+"\n"+args[1]+"\n"+args[2]+"\n"+args[3]+"\n"+args[4]+"\n"+args[5]+"\n"+args[6]+"\n"+args[7]+"\n";
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+    }
+
     public void finish(){
         if(!isClientConnected())
             return;

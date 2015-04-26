@@ -1,17 +1,19 @@
 package Models;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class User {
-    private IntegerProperty id;
-    private StringProperty firstName;
-    private StringProperty lastName;
-    private StringProperty birthday;
-    private IntegerProperty N_friends;
-    private IntegerProperty N_events;
-    private IntegerProperty N_going;
-    private StringProperty photo;
+    private IntegerProperty id=new SimpleIntegerProperty();
+    private StringProperty firstName=new SimpleStringProperty();
+    private StringProperty lastName=new SimpleStringProperty();
+    private StringProperty birthday=new SimpleStringProperty();
+    private IntegerProperty N_friends=new SimpleIntegerProperty();
+    private IntegerProperty N_events=new SimpleIntegerProperty();
+    private IntegerProperty N_going=new SimpleIntegerProperty();
+    private StringProperty photo=new SimpleStringProperty();
 
 
     public int getId() {
