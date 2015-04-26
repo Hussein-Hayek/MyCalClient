@@ -100,6 +100,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
                     event.setId(Integer.parseInt(inFromServer.readLine()));
                     event.setCreator_id(Integer.parseInt(inFromServer.readLine()));
                     event.setName(inFromServer.readLine());
+                    event.setMapsUrl(inFromServer.readLine());
                     event.setDateBegin(inFromServer.readLine());
                     event.setDateEnd(inFromServer.readLine());
                     event.setTimeBegin(inFromServer.readLine());
@@ -120,7 +121,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         return events;
     }
 
-    public void addEvent(String[] args){
+    public boolean addEvent(String[] args){
         String out="add event\n";
         out+=id+"\n"+args[0]+"\n"+args[1]+"\n"+args[2]+"\n"+args[3]+"\n"+args[4]+"\n"+args[5]+"\n"+args[6]+"\n"+args[7]+"\n";
         try{
@@ -129,7 +130,9 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         }
         catch (IOException e){
             System.out.println(e.toString());
+            return false;
         }
+        return true;
     }
 
     public void finish(){
@@ -139,6 +142,57 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
             outToServer.writeBytes("exit\n");
         }
         catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void InviteToEvent(String[] args){
+        String out="invite to event\n";
+        out+=args[0]+"\n"+args[1]+"\n";
+        try {
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void GoToEvent(String[] args){
+        String out="go to event+\n"+args[0]+"\n"+args[1]+"\n";
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void SendFriendRequest(String[] args){
+        String out="send friend request\n"+args[0]+"\n"+args[1]+"\n";
+        try {
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void ConfirmFriendRequest(System[] args){
+        String out="confirm request\n"+args[0]+"\n"+args[1]+"\n";
+        try {
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+        } catch (IOException e) {
+           System.out.println(e.toString());
+        }
+    }
+
+    public void RemoveRequest(String[] args){
+        String out="remove request\n"+args[0]+"\n"+args[1]+"\n";
+        try {
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+        } catch (IOException e) {
             System.out.println(e.toString());
         }
     }

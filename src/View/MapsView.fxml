@@ -9,7 +9,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MapCreatorController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -19,7 +19,7 @@
       <RowConstraints maxHeight="195.0" minHeight="10.0" prefHeight="46.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <WebView nodeOrientation="INHERIT" prefHeight="315.0" prefWidth="584.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+      <WebView fx:id="web" prefHeight="315.0" prefWidth="584.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
       <Label alignment="CENTER" prefHeight="26.0" prefWidth="600.0" text="Place the Pin on the location of your Event" textAlignment="CENTER" textFill="#ee0303" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP">
          <font>
             <Font name="Times New Roman Italic" size="18.0" />
@@ -27,8 +27,8 @@
       </Label>
       <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="49.0" prefWidth="303.0" spacing="10.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Apply" />
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="apply" mnemonicParsing="false" onAction="#Apply" text="Apply" />
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#Cancel" text="Cancel" />
          </children>
          <GridPane.margin>
             <Insets right="10.0" top="10.0" />

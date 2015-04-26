@@ -10,6 +10,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -82,8 +83,28 @@ public class HomeController implements Initializable {
             @Override
             public ListCell<Event> call(ListView<Event> param) {
                 return new ListCell<Event>() {
+                    {
+                        super.setCursor(Cursor.HAND);
+                        super.setOnMouseClicked(event ->  {
+                            try {
+                                if(this.getItem()!=null) {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/eventInfo.fxml"));
+                                    Stage stage = new Stage();
+                                    stage.setTitle("Event Info");
+                                    EventInfoController controller = new EventInfoController(this.getItem());
+                                    loader.setController(controller);
+                                    stage.setScene(new Scene(loader.load()));
+                                    stage.show();
+                                }
+                            }
+                            catch (IOException e){
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+
                     @Override
-                    protected void updateItem(Event event, boolean empty) {
+                    protected void updateItem (Event event,boolean empty){
                         super.updateItem(event, empty);
                         if (event == null || empty) {
                             setText("");
@@ -92,8 +113,9 @@ public class HomeController implements Initializable {
                         setText(event.getName());
                     }
                 };
+                }
             }
-        });
+        );
         updateCalendar();
     }
 
@@ -151,7 +173,7 @@ public class HomeController implements Initializable {
         try {
             addEvent_fxml = FXMLLoader.load(getClass().getResource("../View/eventAdder.fxml"));
             Stage eventAdder=new Stage();
-            eventAdder.setScene(new Scene(addEvent_fxml,600,400));
+            eventAdder.setScene(new Scene(addEvent_fxml));
             eventAdder.setTitle("MyCal: Create Event");
             eventAdder.show();
         } catch (IOException e) {
@@ -169,5 +191,10 @@ public class HomeController implements Initializable {
                     showEvents(newValue.getEvents());
             else showEvents(oldValue.getEvents());
         });
+    }
+
+    @FXML
+    public void Refresh(){
+        updateCalendar();
     }
 }
