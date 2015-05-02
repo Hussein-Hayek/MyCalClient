@@ -1,9 +1,6 @@
 package Models;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -12,7 +9,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
     private static boolean ClientConnected=false;
     private static DataOutputStream outToServer=null;
     private static BufferedReader inFromServer=null;
-    private static int id;
+    private static LocalUser localUser=new LocalUser();
     public static ClientSocket getClientSocket(){
         if(clientSocket==null)
             connect();
@@ -58,8 +55,8 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
                 return -1;
             else if (status.equals("Failed: 1"))
                 return 0;
-            else
-                id=Integer.parseInt((status.split(" "))[1]);
+            else if(status.equals("Success"))
+                localUser=getUser(inFromServer);
         }
         catch(IOException e) {
             System.out.println(e.toString());
@@ -88,7 +85,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         return 1;
     }
 
-    public ArrayList<Event> getEvents(){
+    public ArrayList<Event> getEvents(int id){
         String out="request events\n"+id+"\n";
         ArrayList<Event> events=new ArrayList<>();
         try {
@@ -100,7 +97,8 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
                     event.setId(Integer.parseInt(inFromServer.readLine()));
                     event.setCreator_id(Integer.parseInt(inFromServer.readLine()));
                     event.setName(inFromServer.readLine());
-                    event.setMapsUrl(inFromServer.readLine());
+                    event.setMapUrl(inFromServer.readLine());
+                    event.setLocation(inFromServer.readLine());
                     event.setDateBegin(inFromServer.readLine());
                     event.setDateEnd(inFromServer.readLine());
                     event.setTimeBegin(inFromServer.readLine());
@@ -121,7 +119,7 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         return events;
     }
 
-    public boolean addEvent(String[] args){
+    public boolean addEvent(String[] args,int id){
         String out="add event\n";
         out+=id+"\n"+args[0]+"\n"+args[1]+"\n"+args[2]+"\n"+args[3]+"\n"+args[4]+"\n"+args[5]+"\n"+args[6]+"\n"+args[7]+"\n";
         try{
@@ -195,6 +193,169 @@ public class ClientSocket extends Socket {   //this is a singleton class since I
         } catch (IOException e) {
             System.out.println(e.toString());
         }
+    }
+
+    private LocalUser getUser(BufferedReader reader) throws IOException{
+        LocalUser user=new LocalUser();
+        user.setId(Integer.parseInt(reader.readLine()));
+        user.setFirstName(reader.readLine());
+        user.setLastName(reader.readLine());
+        user.setEmail(reader.readLine());
+        user.setBirthday(reader.readLine());
+        user.setPhoto(reader.readLine());
+        user.setN_friends(Integer.parseInt(reader.readLine()));
+        user.setN_requests(Integer.parseInt(reader.readLine()));
+        user.setN_invited(Integer.parseInt(reader.readLine()));
+        user.setN_going(Integer.parseInt(reader.readLine()));
+        return user;
+    }
+
+    public static LocalUser getLocalUser(){
+        return localUser;
+    }
+
+    public ArrayList<User> requestFriends(int id){
+        ArrayList<User> users=null;
+        String out="request friends\n"+id+"\n";
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Failed"))
+                return null;
+            else if(status.equals("Success")){
+                users=new ArrayList<>();
+                while (!inFromServer.readLine().equals("end")){
+                    User user=new User();
+                    user.setId(Integer.parseInt(inFromServer.readLine()));
+                    user.setFirstName(inFromServer.readLine());
+                    user.setLastName(inFromServer.readLine());
+                    users.add(user);
+                }
+            }
+
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+            return null;
+        }
+        return users;
+    }
+
+    public User requestUser(int id){
+        String out="request user\n"+id+"\n";
+        User user=new User();
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Failed"))
+                return null;
+            else if(status.equals("Success")){
+                user=getUser(inFromServer);
+                inFromServer.readLine();
+            }
+
+        }catch (IOException e){
+            System.out.println(e.toString());
+        }
+        return user;
+    }
+
+    public int invite(int eventid,String username,int inviterID){
+        String out="invite to event\n"+eventid+"\n"+username+"\n"+inviterID+"\n";
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Success"))
+                return 0;
+            else if(status.equals("Success: 0"))
+                return 1;
+            else if(status.equals("Success: 1"))
+                return 2;
+            else if(status.equals("Success: 2"))
+                return 3;
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+        return -1;
+    }
+
+    public ArrayList<User> requestGoing(int eventID){
+        String out=" request going\n"+eventID+"\n";
+        ArrayList<User> users=new ArrayList<>();
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Success")){
+                while (!inFromServer.readLine().equals("end")){
+                    User user=new User();
+                    user.setId(Integer.parseInt(inFromServer.readLine()));
+                    user.setFirstName(inFromServer.readLine());
+                    user.setLastName(inFromServer.readLine());
+                    users.add(user);
+                }
+            }
+            else return null;
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+        return users;
+    }
+
+    public ArrayList<User> requestInvited(int eventID){
+        String out="request invited\n"+eventID+"\n";
+        ArrayList<User> users=new ArrayList<>();
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Success")){
+                while (!inFromServer.readLine().equals("end")){
+                    User user =new User();
+                    user.setId(Integer.parseInt(inFromServer.readLine()));
+                    user.setFirstName(inFromServer.readLine());
+                    user.setLastName(inFromServer.readLine());
+                    users.add(user);
+                }
+            }
+            else return null;
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+        return users;
+    }
+
+    public ArrayList<Event> requestInvitations(int id){
+        String out="request invitations\n"+id+"\n";
+        ArrayList<Event> events=new ArrayList<>();
+        try{
+            outToServer.writeBytes(out);
+            String status=inFromServer.readLine();
+            if(status.equals("Success")){
+                while (!inFromServer.readLine().equals("end")){
+                    Event event=new Event();
+                    event.setId(Integer.parseInt(inFromServer.readLine()));
+                    event.setName(inFromServer.readLine());
+                    event.setName(inFromServer.readLine());
+                    events.add(event);
+                }
+            }
+            else return null;
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+        return events;
+    }
+
+    public void logout(){
+        try {
+            ClientSocket.getClientSocket().getOutToServer().writeBytes("finish\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

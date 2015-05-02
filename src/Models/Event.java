@@ -17,7 +17,7 @@ public class Event {
     private StringProperty timeZone=new SimpleStringProperty();
     private IntegerProperty N_going=new SimpleIntegerProperty();
     private IntegerProperty N_invited=new SimpleIntegerProperty();
-    private StringProperty mapsUrl=new SimpleStringProperty();
+    private StringProperty mapUrl =new SimpleStringProperty();
 
     public Event(){
 
@@ -155,15 +155,15 @@ public class Event {
         this.N_invited.set(n_invited);
     }
 
-    public String getMapsUrl() {
-        return mapsUrl.get();
+    public String getMapUrl() {
+        return mapUrl.get();
     }
 
-    public StringProperty mapsUrlProperty() {
-        return mapsUrl;
+    public StringProperty mapUrlProperty() {
+        return mapUrl;
     }
 
-    public void setMapsUrl(String mapsUrl) {
-        this.mapsUrl.set(mapsUrl);
+    public void setMapUrl(String mapUrl) {
+        this.mapUrl.set(mapUrl);
     }
 }

@@ -1,9 +1,10 @@
 package Controllers;
 
+import Models.ClientSocket;
 import Models.Event;
 import Models.MyCalCalendar;
+import Models.MyCalDay;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -14,7 +15,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Screen;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -24,53 +25,71 @@ import java.util.*;
 
 public class HomeController implements Initializable {
     private GregorianCalendar currentDate=(GregorianCalendar)Calendar.getInstance();
+    private int id;
+    private MyCalCalendar myCalCalendar;
+    private boolean isLocal=true;
     private Task<Void> update;
     @FXML
     public Label month;
     @FXML
     public ComboBox<Integer> year;
     @FXML
-    public TableView<MyCalCalendar> monday;
+    public TableView<MyCalDay> monday;
     @FXML
-    public TableColumn<MyCalCalendar,String> monday_c;
+    public TableColumn<MyCalDay,String> monday_c;
     @FXML
-    public TableView<MyCalCalendar> tuesday;
+    public TableView<MyCalDay> tuesday;
     @FXML
-    public TableColumn<MyCalCalendar,String> tuesday_c;
+    public TableColumn<MyCalDay,String> tuesday_c;
     @FXML
-    public TableView<MyCalCalendar> wednesday;
+    public TableView<MyCalDay> wednesday;
     @FXML
-    public TableColumn<MyCalCalendar,String> wednesday_c;
+    public TableColumn<MyCalDay,String> wednesday_c;
     @FXML
-    public TableView<MyCalCalendar> thursday;
+    public TableView<MyCalDay> thursday;
     @FXML
-    public TableColumn<MyCalCalendar,String> thursday_c;
+    public TableColumn<MyCalDay,String> thursday_c;
     @FXML
-    public TableView<MyCalCalendar> friday;
+    public TableView<MyCalDay> friday;
     @FXML
-    public TableColumn<MyCalCalendar,String> friday_c;
+    public TableColumn<MyCalDay,String> friday_c;
     @FXML
-    public TableView<MyCalCalendar> saturday;
+    public TableView<MyCalDay> saturday;
     @FXML
-    public TableColumn<MyCalCalendar,String> saturday_c;
+    public TableColumn<MyCalDay,String> saturday_c;
     @FXML
-    public TableView<MyCalCalendar> sunday;
+    public TableView<MyCalDay> sunday;
     @FXML
-    public TableColumn<MyCalCalendar,String> sunday_c;
+    public TableColumn<MyCalDay,String> sunday_c;
     @FXML
     public ListView<Event> events_list;
+    @FXML
+    public Button logout_btn,refresh_btn,addEvent_btn,invitations_btn;
+    @FXML
+    public VBox root;
 
     private final String[] months={"January","February","March","April","May","June","July","August","September","October","November","December"};
     private ObservableList<Integer> years=FXCollections.observableArrayList();
+
+    public HomeController(int id,boolean isLocal){
+        this.id=id;
+        this.isLocal=isLocal;
+    }
+
     @Override
     public void initialize(URL url,ResourceBundle resourceBundle){
+        myCalCalendar=new MyCalCalendar(id);
+        logout_btn.setVisible(isLocal);
+        invitations_btn.setDisable(!isLocal);
+        addEvent_btn.setDisable(!isLocal);
+
         sunday_c.setCellValueFactory(data -> new SimpleStringProperty("" + (data.getValue().getDate())));
         monday_c.setCellValueFactory(data -> new SimpleStringProperty("" + (data.getValue().getDate())));
         tuesday_c.setCellValueFactory(data->new SimpleStringProperty(""+(data.getValue().getDate())));
         wednesday_c.setCellValueFactory(data->new SimpleStringProperty(""+(data.getValue().getDate())));
         thursday_c.setCellValueFactory(data -> new SimpleStringProperty("" + (data.getValue().getDate())));
         friday_c.setCellValueFactory(data -> new SimpleStringProperty("" + (data.getValue().getDate())));
-        saturday_c.setCellValueFactory(data -> new SimpleStringProperty("" + (data.getValue().getDate())));
+        saturday_c.setCellValueFactory(data -> new SimpleStringProperty("" + (data.getValue(    ).getDate())));
         year.setItems(years);
         editTable(sunday);
         editTable(monday);
@@ -129,14 +148,14 @@ public class HomeController implements Initializable {
         update=new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                MyCalCalendar.update();
+                myCalCalendar.update();
                 for(int i=1980;i<2100;i++)
                     years.add(i);
                 return null;
             }
             @Override
             protected void succeeded(){
-                ArrayList<ObservableList<MyCalCalendar>> mycalcalendar = MyCalCalendar.getMonth(currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));
+                ArrayList<ObservableList<MyCalDay>> mycalcalendar = myCalCalendar.getMonth(currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));
                 sunday.setItems(mycalcalendar.get(0));
                 monday.setItems(mycalcalendar.get(1));
                 tuesday.setItems(mycalcalendar.get(2));
@@ -185,10 +204,10 @@ public class HomeController implements Initializable {
         events_list.setItems(events);
     }
 
-    private void editTable(TableView<MyCalCalendar> t){
+    private void editTable(TableView<MyCalDay> t){
         t.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue!=null)
-                    showEvents(newValue.getEvents());
+            if (newValue != null)
+                showEvents(newValue.getEvents());
             else showEvents(oldValue.getEvents());
         });
     }
@@ -196,5 +215,37 @@ public class HomeController implements Initializable {
     @FXML
     public void Refresh(){
         updateCalendar();
+    }
+
+    @FXML
+    public void showFriends(){
+        FXMLLoader userslist_fxml=new FXMLLoader(getClass().getResource("../View/users.fxml"));
+        try{
+            UsersListController usersListController=new UsersListController(id,0);
+            userslist_fxml.setController(usersListController);
+            Stage usersList=new Stage();
+            usersList.setScene(new Scene(userslist_fxml.load()));
+            usersList.setTitle("Friends");
+            usersList.show();
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+    }
+
+    @FXML
+    public void logout(){
+        ClientSocket.getClientSocket().logout();
+                ((Stage) root.getScene().getWindow()).close();
+        try {
+            Parent main=FXMLLoader.load(getClass().getResource("../View/login.fxml"));
+            Stage stage=new Stage();
+            stage.setScene(new Scene(main));
+            stage.setTitle("Main");
+            stage.show();
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
     }
 }

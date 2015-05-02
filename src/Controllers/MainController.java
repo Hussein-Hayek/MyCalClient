@@ -25,8 +25,7 @@ public class MainController implements Initializable{
     private Alert loginFailed=new Alert(Alert.AlertType.ERROR);
     private Task<Integer> loginTask;
     private Stage currentStage;
-    private final Stage homeStage =new Stage();
-    private Parent homeRoot;
+
     @FXML
     public TextField Login_Username;
     @FXML
@@ -48,7 +47,7 @@ public class MainController implements Initializable{
         try {
             Parent signup_fxml= FXMLLoader.load(getClass().getResource("../View/signup.fxml"));
             Stage signupStage=new Stage();
-            signupStage.setScene(new Scene(signup_fxml, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight()));
+            signupStage.setScene(new Scene(signup_fxml));
             signupStage.setTitle("MyCal: SignUp");
             signupStage.show();
         }
@@ -98,16 +97,20 @@ public class MainController implements Initializable{
                     });
                 }
                 else if(getValue()>0) {
+                    FXMLLoader home_fxml=new FXMLLoader(getClass().getResource("../View/home.fxml"));
                     try {
-                        homeRoot = FXMLLoader.load(getClass().getResource("../View/home.fxml"));
-                        homeStage.setTitle("Home");
-                        homeStage.setScene(new Scene(homeRoot));
-                    } catch (IOException e) {
+                        HomeController homeController=new HomeController(ClientSocket.getLocalUser().getId(),true);
+                        home_fxml.setController(homeController);
+                        Stage homeStage=new Stage();
+                        homeStage.setScene(new Scene(home_fxml.load()));
+                        currentStage=(Stage)root.getScene().getWindow();
+                        currentStage.close();
+                        homeStage.show();
 
+                    } catch (IOException e) {
+                        System.out.println(e.toString());
                     }
-                    currentStage=(Stage)root.getScene().getWindow();
-                    currentStage.close();
-                    homeStage.show();
+
                 }
                 else
                     loginFailed.showAndWait();

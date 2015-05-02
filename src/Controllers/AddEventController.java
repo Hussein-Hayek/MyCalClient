@@ -3,7 +3,6 @@ package Controllers;
 
 import Models.ClientSocket;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.StringBinding;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -141,8 +139,8 @@ public class AddEventController implements Initializable{
                         Event_name.getText(),Event_location.getText(),"",""+Event_Start.getValue(),""+Event_End.getValue(),
                         hh_b.getValue()+":"+mm_b.getValue()+":00",hh_e.getValue()+":"+mm_e.getValue()+":00",timeZone.getValue()
                 };
-                args[2]= !MapCreatorController.url.equals("") ? MapCreatorController.url:"";
-                return ClientSocket.getClientSocket().addEvent(args);
+                args[2]= !MapController.url.equals("") ? MapController.url:"";
+                return ClientSocket.getClientSocket().addEvent(args,ClientSocket.getLocalUser().getId());
             }
             @Override
             protected void succeeded(){
@@ -162,13 +160,15 @@ public class AddEventController implements Initializable{
 
     @FXML
     public void GoogleMaps(){
-        Parent GoogleMapsWebView_fxml= null;
+        FXMLLoader MapView_FXML= null;
         try {
-            GoogleMapsWebView_fxml = FXMLLoader.load(getClass().getResource("../View/MapsView.fxml"));
-            Stage GoogleMapsWebView=new Stage();
-            GoogleMapsWebView.setScene(new Scene(GoogleMapsWebView_fxml));
-            GoogleMapsWebView.setTitle("MyCal: Google Maps Location");
-            GoogleMapsWebView.show();
+            MapView_FXML = new FXMLLoader(getClass().getResource("../View/MapsView.fxml"));
+            Stage MapViewStage=new Stage();
+            MapController mapController=new MapController(true,"http://localhost/addpin.html");
+            MapView_FXML.setController(mapController);
+            MapViewStage.setScene(new Scene(MapView_FXML.load()));
+            MapViewStage.setTitle("MyCal: Google Maps Location");
+            MapViewStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

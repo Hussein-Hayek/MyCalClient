@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
          <items>
@@ -22,7 +22,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="refresh" mnemonicParsing="false" onAction="#Refresh">
+            <Button fx:id="refresh_btn" mnemonicParsing="false" onAction="#Refresh">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="22.0">
                      <image>
@@ -44,26 +44,17 @@
                               <Image url="@../resources/images/NULL.jpeg" />
                            </image>
                         </ImageView>
-                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" GridPane.rowIndex="1">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Friends">
+                              <Button mnemonicParsing="false" onAction="#showFriends" prefHeight="25.0" prefWidth="237.0" text="Friends">
                                  <VBox.margin>
                                     <Insets top="40.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Events">
-                                 <VBox.margin>
-                                    <Insets top="40.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="237.0" text="Chat">
-                                 <VBox.margin>
-                                    <Insets top="40.0" />
-                                 </VBox.margin>
-                              </Button>
+                              <Button fx:id="invitations_btn" mnemonicParsing="false" prefHeight="25.0" prefWidth="283.0" text="Invitations" />
                            </children>
                         </VBox>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="181.0" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="logout_btn" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="181.0" text="Logout" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

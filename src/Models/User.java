@@ -9,12 +9,13 @@ public class User {
     private IntegerProperty id=new SimpleIntegerProperty();
     private StringProperty firstName=new SimpleStringProperty();
     private StringProperty lastName=new SimpleStringProperty();
+    private StringProperty email=new SimpleStringProperty();
     private StringProperty birthday=new SimpleStringProperty();
     private IntegerProperty N_friends=new SimpleIntegerProperty();
     private IntegerProperty N_events=new SimpleIntegerProperty();
     private IntegerProperty N_going=new SimpleIntegerProperty();
+    private IntegerProperty N_invited=new SimpleIntegerProperty();
     private StringProperty photo=new SimpleStringProperty();
-
 
     public int getId() {
         return id.get();
@@ -110,5 +111,29 @@ public class User {
 
     public void setPhoto(String photo) {
         this.photo.set(photo);
+    }
+
+    public String getEmail() {
+        return email.get();
+    }
+
+    public StringProperty emailProperty() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
+    public int getN_invited() {
+        return N_invited.get();
+    }
+
+    public IntegerProperty n_invitedProperty() {
+        return N_invited;
+    }
+
+    public void setN_invited(int n_invited) {
+        this.N_invited.set(n_invited);
     }
 }
